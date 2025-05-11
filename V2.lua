@@ -34,7 +34,7 @@ TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.BorderSizePixel = 0
 TextLabel.Size = UDim2.new(0, 455, 0, 47)
 TextLabel.Font = Enum.Font.Highway
-TextLabel.Text = "NA Backdoor Admin"
+TextLabel.Text = "✨ NA Backdoor Admin ✨"
 TextLabel.TextColor3 = Color3.fromRGB(233, 255, 39)
 TextLabel.TextSize = 20.000
 
