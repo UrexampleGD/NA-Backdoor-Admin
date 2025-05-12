@@ -434,21 +434,8 @@ local function ScriptHubScript()
         ScriptHubFrame.Visible = not ScriptHubFrame.Visible
     end)
     
-    local function isInjected()
-        return AcquiredRemote ~= nil
-    end
-    
-    local function showInjectionWarning()
-        warn("NA Backdoor Admin // Please inject first before using ScriptHub!")
-        local originalText = Acqur.Text
-        Acqur.Text = "Inject"
-        task.delay(2, function()
-            Acqur.Text = originalText
-        end)
-    end
-    
     local function executeScript(scriptCode)
-        if isInjected() then
+        if AcquiredRemote then
             if AcquiredRemote:IsA("RemoteEvent") then
                 AcquiredRemote:FireServer(scriptCode)
             elseif AcquiredRemote:IsA("RemoteFunction") then
@@ -459,7 +446,24 @@ local function ScriptHubScript()
                 end)
             end
         else
-            showInjectionWarning()
+            local InvokeFunc = Instance.new("BindableEvent")
+            InvokeFunc.Event:Connect(function(rfunc, codestr2)
+                task.spawn(function()
+                    pcall(function()
+                        rfunc:InvokeServer(codestr2)
+                    end)
+                end)
+            end)
+
+            for _, child in ipairs(game:GetDescendants()) do
+                if child.Parent ~= game:GetService("RobloxReplicatedStorage") then
+                    if child:IsA("RemoteEvent") then
+                        child:FireServer(scriptCode)
+                    elseif child:IsA("RemoteFunction") then
+                        InvokeFunc:Fire(child, scriptCode)
+                    end
+                end
+            end
         end
     end
     
